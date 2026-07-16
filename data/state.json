@@ -1,0 +1,10 @@
+{
+    "moto": {
+        "enabled": true,
+        "last_dates": []
+    },
+    "carro": {
+        "enabled": true,
+        "last_dates": []
+    }
+}
