@@ -2,4 +2,3 @@ python-dotenv
 resend
 apscheduler
 requests
-os
