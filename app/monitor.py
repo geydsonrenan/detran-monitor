@@ -5,6 +5,7 @@ from app.config import (
     EMAIL
 )
 from datetime import datetime
+import logging
 
 class Monitor:
 
@@ -33,10 +34,10 @@ class Monitor:
                     categoria,
                     sorted(novas_datas)
                 )
-                print(f"---------- {categoria} ----------")
-                print(f"{novas_datas}")
+                logging.info(f"---------- {categoria} ----------")
+                logging.info(f"{novas_datas}")
             else:
-                print(f"Nenhuma atualização para {categoria} -- {datetime.now()}")
+                logging.info(f"Nenhuma atualização para {categoria} -- {datetime.now()}")
 
             state[categoria]["last_dates"] = sorted(datas)
 
