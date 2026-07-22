@@ -15,21 +15,30 @@ from app.config import (
 def consultar_datas(tipo_exame):
 
     params = {
-        "cpf": CPF,
-        "dataNascimento": DATA_NASCIMENTO,
-        "codAptidao": COD_APTIDAO,
-        "tipoExame": tipo_exame,
+        "cpf": f'{CPF}',
+        "dataNascimento": f'{DATA_NASCIMENTO}',
+        "codAptidao": f'{COD_APTIDAO}',
+        "tipoExame": f'{tipo_exame}',
     }
 
     session = requests.Session()
 
     session.headers.update(HEADERS)
+    session.cookies.update(COOKIES)
 
-    response = session.get(URL, params=params)
+    response = session.get(
+        URL,
+        params=params,
+        timeout=60
+    )
+
+    resposta_texto = response.text.strip()
 
     response.raise_for_status()
-
-    return response.json()
+    if resposta_texto:
+        return response.json()
+    else:
+        return []
 
 def consultar_todas_as_datas():
     return {

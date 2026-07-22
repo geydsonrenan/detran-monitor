@@ -9,7 +9,7 @@ def iniciar():
     scheduler.add_job(
         monitor.verificar,
         "interval",
-        seconds=40,
+        seconds=30,
         max_instances=1,
         coalesce=True
     )

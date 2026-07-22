@@ -6,6 +6,20 @@ from app.config import (
 )
 from datetime import datetime
 import logging
+import sys
+
+def tocar_alerta_sonoro():
+    try:
+        if sys.platform == "win32":
+            import winsound
+            # Emite 3 bips (Frequência: 1000Hz, Duração: 300ms)
+            for _ in range(3):
+                winsound.Beep(1000, 300)
+        else:
+            # Fallback para Linux/macOS no terminal
+            print('\a')
+    except Exception as e:
+        logging.warning(f"Falha ao reproduzir o som do alerta: {e}")
 
 class Monitor:
 
@@ -19,6 +33,8 @@ class Monitor:
 
         resultados = consultar_todas_as_datas()
 
+        print(resultados)
+
         for categoria, datas in resultados.items():
 
             if not state[categoria]["enabled"]:
@@ -30,6 +46,7 @@ class Monitor:
             novas_datas = datas_atuais - datas_anteriores
 
             if novas_datas:
+                tocar_alerta_sonoro()
                 self.notifier.send(
                     categoria,
                     sorted(novas_datas)
